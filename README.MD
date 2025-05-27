@@ -1,10 +1,10 @@
-# Eye Annotation Tool & Frame Extractor
+# Annotation Tool & Frame Extractor
 
-![Eye Annotation Demo](media/0527.gif)
+![Annotate Demo](media/0527.gif)
 
-This project provides two key tools for preparing datasets for eye segmentation tasks:
+This project provides two key tools for preparing datasets for object segmentation tasks:
 
-1. **Flexible Polygon-Based Eye Mask Annotator**
+1. **Flexible Polygon-Based object Mask Annotator**
 2. **Random Frame Extractor from Video**
 
 ## 🔧 Requirements
@@ -20,9 +20,9 @@ Install dependencies via pip:
 pip install opencv-python numpy
 ```
 
-## 🖼️ 1. Flexible Eye Annotation Tool
+## 🖼️ 1. Flexible object Annotation Tool
 
-This tool allows you to draw polygon masks over eye images using OpenCV GUI.
+This tool allows you to draw polygon masks over object images using OpenCV GUI.
 
 ### ✅ Features
 - Draw multiple flexible polygons
@@ -35,10 +35,10 @@ This tool allows you to draw polygon masks over eye images using OpenCV GUI.
 
 1. Run the tool:
 ```bash
-python annotate_eye.py
+python annotate_object.py
 ```
 
-2. A file picker will open — select an eye image (.jpg, .png, etc.)
+2. A file picker will open — select an object image (.jpg, .png, etc.)
 3. Use your mouse to click points for a polygon
 
 **Keyboard Controls:**
@@ -79,7 +79,7 @@ All output files are saved to: `./datasets/masked/`
 ./datasets/masked/
 ├── 9f23a1c1_1.png       # Extracted frame
 ├── 9f23a1c1_2.png       # Extracted frame
-├── eye1_mask.png        # Mask created from annotate tool
+├── object1_mask.png        # Mask created from annotate tool
 ```
 
 ## 🙋 Need Help?

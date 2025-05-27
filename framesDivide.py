@@ -2,8 +2,18 @@ import cv2
 import os
 import random
 import uuid
+import tkinter as tk
+from tkinter import filedialog
 
-def extract_random_frames(video_path, num_frames=15, output_folder="images"):
+def select_video_file():
+    root = tk.Tk()
+    root.withdraw()
+    return filedialog.askopenfilename(
+        title="Select Input Video",
+        filetypes=[("Video files", "*.mp4 *.avi *.mov *.mkv")]
+    )
+
+def extract_random_frames(video_path, num_frames=15, output_folder="./datasets/masked"):
     # Create output directory if it doesn't exist
     os.makedirs(output_folder, exist_ok=True)
 
@@ -18,12 +28,11 @@ def extract_random_frames(video_path, num_frames=15, output_folder="images"):
         print(f"Video has only {total_frames} frames. Reducing number of outputs.")
         num_frames = total_frames
 
-    # Generate a random UUID for image prefix
-    video_id = str(uuid.uuid4().hex)[:8]  # short 8-char id
+    # Generate a short UUID for file prefix
+    video_id = str(uuid.uuid4().hex)[:8]
 
     # Select random frame indices
     selected_frames = sorted(random.sample(range(total_frames), num_frames))
-
     print(f"Extracting frames at indices: {selected_frames}")
 
     frame_idx = 0
@@ -47,7 +56,10 @@ def extract_random_frames(video_path, num_frames=15, output_folder="images"):
     cap.release()
     print("Done.")
 
-# Example usage:
+# Entry point
 if __name__ == "__main__":
-    input_video = "G:/dataset_vid/0/ID21_LDH_positive.mp4" # Replace with your video path
-    extract_random_frames(input_video)
+    video_path = select_video_file()
+    if video_path:
+        extract_random_frames(video_path)
+    else:
+        print("No video selected.")

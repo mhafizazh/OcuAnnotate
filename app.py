@@ -38,6 +38,22 @@ def redraw(img):
         pts = np.array(poly, np.int32)
         cv2.polylines(temp_img, [pts], isClosed=True, color=(255, 0, 0), thickness=2)
 
+    # Add on-screen instructions
+    instructions = [
+        "Left-click: Draw point",
+        "'C': Complete polygon",
+        "'U': Undo point",
+        "'R': Restart",
+        "'N': No object (blank mask)",
+        "ENTER: Save mask",
+        "ESC: Cancel"
+    ]
+
+    y0 = 20
+    for i, text in enumerate(instructions):
+        cv2.putText(temp_img, text, (10, y0 + i * 20),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+
     cv2.imshow("Draw Mask", temp_img)
 
 def save_segmentation_mask(original_image, filename, polygons):
@@ -49,10 +65,12 @@ def save_segmentation_mask(original_image, filename, polygons):
         cv2.fillPoly(mask, [pts], 255)
 
     base_name = os.path.splitext(os.path.basename(filename))[0]
-    os.makedirs("./", exist_ok=True)
-    mask_filename = f"./datasets/masked/{base_name}_mask.png"
+    output_dir = "./datasets/masked/"
+    os.makedirs(output_dir, exist_ok=True)
+    mask_filename = os.path.join(output_dir, f"{base_name}_mask.png")
     cv2.imwrite(mask_filename, mask)
     print(f"Saved flexible mask: {mask_filename}")
+
 
 def save_blank_mask(original_image, filename):
     height, width = original_image.shape[:2]

@@ -13,7 +13,7 @@ def select_video_file():
         filetypes=[("Video files", "*.mp4 *.avi *.mov *.mkv")]
     )
 
-def extract_random_frames(video_path, num_frames=15, output_folder="./datasets/masked"):
+def extract_random_frames(video_path, num_frames=15, output_folder=".\datasets\images"):
     # Create output directory if it doesn't exist
     os.makedirs(output_folder, exist_ok=True)
 
@@ -48,6 +48,7 @@ def extract_random_frames(video_path, num_frames=15, output_folder="./datasets/m
             cv2.imwrite(filename, frame)
             print(f"Saved: {filename}")
             save_idx += 1
+
 
         frame_idx += 1
         if save_idx > num_frames:

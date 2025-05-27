@@ -1,5 +1,7 @@
 # Eye Annotation Tool & Frame Extractor
 
+![Eye Annotation Demo](media/0527.gif)
+
 This project provides two key tools for preparing datasets for eye segmentation tasks:
 
 1. **Flexible Polygon-Based Eye Mask Annotator**

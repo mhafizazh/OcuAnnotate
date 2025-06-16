@@ -5,16 +5,18 @@ import os
 import numpy as np
 
 # Globals
-contours = []       # All polygons
-current_contour = []  # Points of current polygon
+contours = []         # All completed polygons
+current_contour = []  # Points of the current polygon
 temp_img = None
 original_img = None
 
 def select_image_file():
     root = tk.Tk()
     root.withdraw()
-    return filedialog.askopenfilename(title="Select Eye Image",
-                                      filetypes=[("Image files", "*.jpg *.png *.jpeg")])
+    return filedialog.askopenfilename(
+        title="Select Eye Image",
+        filetypes=[("Image files", "*.jpg *.png *.jpeg")]
+    )
 
 def mouse_callback(event, x, y, flags, param):
     global current_contour, temp_img
@@ -67,10 +69,9 @@ def save_segmentation_mask(original_image, filename, polygons):
     base_name = os.path.splitext(os.path.basename(filename))[0]
     output_dir = "./datasets/masked/"
     os.makedirs(output_dir, exist_ok=True)
-    mask_filename = os.path.join(output_dir, f"{base_name}_mask.png")
+    mask_filename = os.path.join(output_dir, f"{base_name}.png")
     cv2.imwrite(mask_filename, mask)
     print(f"Saved flexible mask: {mask_filename}")
-
 
 def save_blank_mask(original_image, filename):
     height, width = original_image.shape[:2]
@@ -98,8 +99,11 @@ def main():
     original_img = img.copy()
     temp_img = img.copy()
 
-    cv2.namedWindow("Draw Mask")
+    # Make window resizable
+    cv2.namedWindow("Draw Mask", cv2.WINDOW_NORMAL)
+    cv2.resizeWindow("Draw Mask", original_img.shape[1], original_img.shape[0])
     cv2.setMouseCallback("Draw Mask", mouse_callback, param=img)
+
     redraw(img)
 
     print("Instructions:")
